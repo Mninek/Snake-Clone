@@ -15,7 +15,7 @@
 class Game
 {
 private:
-	int gridX = 0, gridY = 0, posX[1444]{ 20,20,20,20,20 }, posY[1444] = { 20,19,18,17,16 }, foodX, foodY, snakeLength = 5, bad[10] = {}, badX[10] = {}, badY[10] = {}, score = -1, FPS = 15, sound = 0;
+	int gridX = 0, gridY = 0, posX[1444]{ 20,20,20,20,20 }, posY[1444] = { 20,19,18,17,16 }, foodX, foodY, snakeLength = 5, badNum = 0, bad[10] = {}, badX[10] = {}, badY[10] = {}, score = -1, FPS = 15, sound = 0;
 	bool gameOver = false, ate = true;
 	short snakeD = RIGHT;
 public:
