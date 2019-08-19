@@ -146,6 +146,7 @@ void Game::drawFood()
 		if (score % 7 == 0 && score != 0)
 		{
 			createBaddies();
+			badNum++;
 		}
 	}
 
@@ -156,7 +157,7 @@ void Game::drawFood()
 
 void Game::drawBaddies()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < badNum; i++)
 	{
 		if (bad[i] == 0)
 			i = 10;
