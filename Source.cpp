@@ -1,12 +1,12 @@
-#include <GLFW/glfw3.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif //i had some errors with gl.h and saw to add this online
 #include <gl/GL.h>
-#include <iostream>
-#include <Windows.h>
+#include <GLFW/glfw3.h>
 #include "game.h"
-#include <string>
 #include "leaderboard.h"
 #include "sortLeader.h"
-
+#include "soundSys.h"
 
 #define COLS 40
 #define ROWS 40
@@ -15,6 +15,7 @@
 
 short snakeD;
 using namespace std;
+using namespace irrklang;
 
 
 void initStuff();
@@ -42,6 +43,8 @@ int main()
 		while (option < 1 || option > 4)
 		{
 			cout << "invalid input, please enter 1-3\n";
+			cin.clear();
+			cin.ignore('\n');
 			cin >> option;
 		}
 
@@ -50,7 +53,7 @@ int main()
 
 			glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 			GLFWwindow * window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snake Game", NULL, NULL);
-
+			soundSys sound;
 
 			if (!window)
 			{
@@ -85,6 +88,9 @@ int main()
 				game.drawSnake();
 				game.drawFood();
 				game.drawBaddies();
+				sound.gameSounds(game.getSoundType());
+				game.resetSound();
+
 				glfwSwapBuffers(window);
 
 
@@ -96,6 +102,7 @@ int main()
 				int q = game.checkGameOver();
 				if (q == 1)
 				{
+					sound.gameOver();
 					endScore = game.getScore();
 					option = game.gameOverFunc();
 					glfwDestroyWindow(window);

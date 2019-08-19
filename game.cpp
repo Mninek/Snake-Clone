@@ -105,8 +105,16 @@ void Game::drawSnake()
 
 	for (int i = 0; i < snakeLength; i++)
 	{
-		glColor3f(0.0, 1.0, 0.0);
-		glRectd(posX[i], posY[i], posX[i] + 1, posY[i] + 1);
+		if (i == 0)
+		{
+			glColor3f(0.0, .5, 1.0);
+			glRectd(posX[i], posY[i], posX[i] + 1, posY[i] + 1);
+		}
+		else
+		{
+			glColor3f(0.0, 1.0, 0.0);
+			glRectd(posX[i], posY[i], posX[i] + 1, posY[i] + 1);
+		}
 	}
 	for (int i = 1; i < snakeLength; i++)
 	{
@@ -117,7 +125,9 @@ void Game::drawSnake()
 	}
 
 	if (posX[0] == 0 || posX[0] == gridX - 1 || posY[0] == 0 || posY[0] == gridY - 1)
+	{
 		gameOver = true;
+	}
 	if (posX[0] == foodX && posY[0] == foodY)
 		ate = true;
 }
@@ -126,6 +136,7 @@ void Game::drawFood()
 {
 	if (ate)
 	{
+		sound = 1;
 		random(foodX, foodY);
 		snakeLength++;
 		score++;
@@ -152,11 +163,14 @@ void Game::drawBaddies()
 		else
 		{
 
-			glColor3f(1.0, 0.0, 1.0);
+			glColor3f(1.0, 0.0, 0.0);
 			glRecti(badX[i], badY[i], badX[i] + 1, badY[i] + 1);
 		}
 		if (posX[0] == badX[i] && posY[0] == badY[i])
+		{
 			gameOver = true;
+			sound = 2;
+		}
 	}
 }
 
@@ -244,4 +258,13 @@ int Game::getFPS()
 int Game::getScore()
 {
 	return score;
+}
+
+int Game::getSoundType()
+{
+	return sound;
+}
+void Game::resetSound()
+{
+	sound = 0;
 }
